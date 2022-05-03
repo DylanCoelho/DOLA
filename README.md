@@ -138,3 +138,47 @@ ant version :ant
 targets: clean compile test package war
 ```
 
+# pipeline with stages and parameters
+```
+#To create a pipeline script and build a pipeline of jobs in Jenkins
+#build->howwer->proceed
+#This project is parameterised(with parameters: Person, STUDENT, DIVISION, PID)
+#pipeline
+pipeline {
+  agent any
+  stages {
+    stage('Form') {
+      input {
+        message "Please fill this form"
+        parameters {
+          string(name: 'PERSON', defaultValue: '', description: 'Your Name: ')
+          booleanParam(name: 'STUDENT', defaultValue: true, description: 'Student')
+          choice(name: 'DIVISION', choices: ['A', 'B'], description: 'Pick division')
+          text(name: 'PID', defaultValue: '', description: 'Enter your PID')
+        }
+      }
+      steps {
+        echo "Hello, ${params.PERSON}"
+        echo "Toggle: ${params.STUDENT}"
+        echo "Choice: ${params.DIVISION}"
+        echo "PID: ${params.PID}"
+      }
+    }
+    stage('info') {
+            steps {
+                echo 'This was your information'
+            }
+        }
+    stage('Bye') {
+            steps {
+                echo 'Bye'
+            }
+        }
+  }
+  post {
+    failure {
+      echo 'The build was unsuccessful, try again later.'
+    }
+  }
+}
+```
