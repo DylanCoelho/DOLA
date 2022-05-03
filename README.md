@@ -105,3 +105,36 @@ echo "Your Surname is %str2%"
 echo "Your Favorite City is %city%"
 echo "Are you a student %student%"
 ```
+#python
+```
+#implecit
+#build->execute python script
+print("hello world")
+
+#explicit
+#create simple python file in local
+#build -> execute windows batch command
+D:
+cd D:\foldername
+python filename.py
+
+```
+# maven and ant
+### maven
+```
+source code management: GIT
+enter git link for maven(reposetory url): https://github.com/DylanCoelho/java-maven-junit-helloworld.git
+goals and options: clean compile test package
+
+output directory : C:\ProgramData\Jenkins\.jenkins\workspace\maventry\target
+```
+### ant
+```
+#freestyle
+Source code management: GIT
+enter git link for ant(Reposetory url): https://github.com/DylanCoelho/rps-ant.git
+build: invoke ant
+ant version :ant
+targets: clean compile test package war
+```
+
