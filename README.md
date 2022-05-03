@@ -182,3 +182,29 @@ pipeline {
   }
 }
 ```
+# Jenkinsfile
+```
+#To create a Jenkinsfile and build a pipeline of jobs in Jenkins
+##pipeline
+build triggers : github hook trigger for gitscm polling
+pipeline: defn: pipeline script from scm
+scm git
+repo url: https://github.com/DylanCoelho/jenkins-pipeline-tutorial.git
+script path: hello-world/Jenkinsfile
+build manually once
+FInally update github repo
+```
+#WebHooks
+```
+#In Jenkins, show changes in a project with the help of webhooks.Also show how builds can be scheduled with cron commands
+##pipeline
+build triggers : github hook trigger for gitscm polling
+#jenkins-pipeline-tutorial->settings->webhook->addwebhook
+#download ngrok -> cmd here
+ngrok http 8080
+#copy http link+: /github-webhook/ -> paste in add webhook 
+#coontent type: applicaton json ->add webhook
+create file and commit in repo
+
+
+```
