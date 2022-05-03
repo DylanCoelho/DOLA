@@ -74,6 +74,7 @@ java filename
 ```
 make java file for parameters
 This project is parameterized
+add parameter->string parameter
 string1
 string2
 
@@ -86,9 +87,21 @@ class StringArguments
     }
 }
 
-build -> cute windows batch command
+build -> execute windows batch command
 D:
 cd D:\foldername
 javac filename.java
 java filename %string1% %string2%
+```
+# batch jenkins
+### for parameters code
+```
+#freestyle
+#This project is parameterized
+#add parameter->string parameterx2(str1,str2),choice(city),boolean(student)
+#build -> execute windows batch command
+echo "Your name is %str1%"
+echo "Your Surname is %str2%"
+echo "Your Favorite City is %city%"
+echo "Are you a student %student%"
 ```
