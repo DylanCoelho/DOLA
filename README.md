@@ -204,7 +204,111 @@ build triggers : github hook trigger for gitscm polling
 ngrok http 8080
 #copy http link+: /github-webhook/ -> paste in add webhook 
 #coontent type: applicaton json ->add webhook
-create file and commit in repo
+#create file and commit in repo
+#check if changes reflect in jenkins
+
+```
+
+#AWS
+```
+### Commands to run on puppet Master
+sudo apt-get update
+wget https://apt.puppetlabs.com/puppet-release-bionic.deb
+sudo dpkg -i puppet-release-bionic.deb
+sudo apt-get install puppetmaster
+apt policy puppetmaster
+sudo systemctl status puppet-master.service
+sudo nano /etc/default/puppet-master
+Add this line in the puppet master file: JAVA_ARGS="-Xms512m -Xmx512m"
+sudo systemctl restart puppet-master.service
+sudo ufw allow 8140/tcp
+sudo nano /etc/hosts
+add line here "master-ip puppet"
 
 
+Run these two commands at the end(after every slave command is executed)
+sudo puppet cert list
+sudo puppet cert sign --all
+```
+
+```
+### Commands to run on slave node/ puppet agent
+sudo apt-get update
+wget https://apt.puppetlabs.com/puppet-release-bionic.deb
+sudo dpkg -i puppet-release-bionic.deb
+sudo apt-get install puppet
+sudo nano /etc/hosts
+add line here "master-ip puppet"
+
+sudo systemctl start puppet
+sudo systemctl enable puppet
+sudo puppet agent --test
+```
+# Puppet Manifest
+### On Master terminal
+```
+sudo mkdir -p /etc/puppet/code/environments/production/manifests/
+cd /etc/puppet/code/environments/production/manifests/
+sudo nano site.pp
+```
+### Following manifests to be written in site.pp
+### Manifest 1
+```
+file {'/tmp/hi.txt':
+ensure => present,
+mode =>  '0644',
+content => "it works on ${ipaddress_eth0}! \n",
+}
+```
+### Manifest 2
+```
+node default{
+package {'nginx':
+ensure => installed,
+}
+file {'/tmp/status.txt':
+content => 'nginx installed',
+mode =>  '0644',
+}
+}
+```
+### Manifest 3
+```
+node default {
+exec { 'apt-update': 
+# exec resource named 'apt-update'
+command => '/usr/bin/apt-get update' 
+# command this resource will run
+}
+# install apache2 package
+package { 'apache2':
+require => Exec['apt-update'], 
+# require 'apt-update' before install$
+ensure => installed,
+}
+}
+```
+### On slave terminal
+```
+After writing every manifest, sudo puppet agent --test
+```
+
+### After every manifest
+##### For 1st manifest - On slave
+```
+cd
+cd /tmp
+cat hi.txt
+```
+
+##### For 2nd manifest - On browser
+```
+go to Slave's Ip address
+nginx webpage shows
+```
+
+##### For 3rd manifest - On browser
+```
+go to Slave's Ip address
+Apache2 webpage shows
 ```
