@@ -209,6 +209,57 @@ ngrok http 8080
 
 ```
 
+
+# Docker
+```
+login docker desktop
+container name/container id can be used
+image name/image id can be used
+
+docker search ubuntu
+docker pull ubuntu
+docker images
+docker images -q
+
+docker run -t -d ubuntu
+docker ps
+docker pause containername
+docker unpause containername
+docker stop containername
+docker run --name containername hello
+docker kill ubuntu
+docker ps -a
+docker rm containername
+docker rmi imagename
+
+docker stats
+
+docker run -it ubuntu
+exit
+
+docker inspect ubuntu
+docker history ubuntu
+
+docker commit container_id imagename
+
+docker tag imagename username/nameOfRepository
+docker push username/nameOfRepository
+check if image has been uploaded to your dockerhub
+
+docker container prune
+
+```
+# DockerFile
+```
+make folder with dockerfile and index.html in it
+open a terminal/cmd in this folder
+
+docker build -t imagename . 
+docker run --publish 8888:80 imagename
+
+open browser and go to localhost:8888
+```
+
 #AWS
 ```
 ### Commands to run on puppet Master
